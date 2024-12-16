@@ -58,10 +58,9 @@ void loop() {
 
   if (pinStatePrevious == LOW && pinStateCurrent == HIGH) {
     Serial.println("Motion detected!");
-    // add the camera function
+    Serial.println("Check Camera");
   } else if (pinStatePrevious == HIGH && pinStateCurrent == LOW) {
     Serial.println("Motion stopped!");
-    // turn off the camera
   } else {
     Serial.println("No motion change detected.");
   }
@@ -88,7 +87,7 @@ void loop() {
   int currentValue = analogRead(CURRENT_SENSOR);
   int voltageValue = analogRead(VOLTAGE_SENSOR);
 
-  //Gets the analog value of the two pins
+  // Get the analog value of the two pins
   Serial.print("The current analog value is: ");
   Serial.println(currentValue);
   Serial.print("The voltage analog value is: ");
@@ -100,13 +99,13 @@ void loop() {
   Serial.println("--------");
   Serial.println("");
 
-  //Converts the analog value into current and voltage
-  float currentReading = currentValue * 0.21 / 4095;
-  float voltageReading = voltageValue * 3.3 / 4095;
+  // Convert the analog value into current and voltage
+  float currentReading = (currentValue * (0.22 / 4095)); // Current in milleamperes 
+  float voltageReading = voltageValue * 3.3 / 4095; // Voltage in volts
 
-  delay(1000);
-
+  Serial.print("Current Reading (mA): ");
   Serial.println(currentReading);
+  Serial.print("Voltage Reading (V): ");
   Serial.println(voltageReading);
 
   Serial.println("");
@@ -115,29 +114,32 @@ void loop() {
 
   delay(1000);
 
-  //Convert the current and voltage into power
-  float power = voltageReading * currentReading ;
+  // Convert the current and voltage into power
+  float power = voltageReading * currentReading; // Measured power in millewatts
 
-  delay(1000);
-
+  Serial.print("Measured Power (mW): ");
   Serial.println(power);
 
   Serial.println("");
   Serial.println("--------");
   Serial.println("");
 
-  delay(2000);
-  
-  //Calculate a simulated appliance (E.g Heater - 1500W)
-  float scale = 1500 / power;
-  float simulatedPower = power * scale;
+  delay(1000);
 
-  Serial.print("Simulated Appliance - Heater: ");
+  // Simulate appliance power with 1500W maximum scaling
+  float maxVoltage = 3.3;     // Maximum measurable voltage (based on sensor)
+  float maxCurrent = 0.22;    // Maximum measurable current in milleamperes
+  float maxPower = maxVoltage * maxCurrent; // Maximum sensor power (mW)
+
+  float scale = 1500 / maxPower;           // Scale to reach 1500W at max sensor output
+  float simulatedPower = power * scale;   // Dynamically adjust power based on scale
+
+  Serial.print("Simulated Appliance Power (W): ");
   Serial.println(simulatedPower);
 
   Serial.println("");
   Serial.println("--------");
   Serial.println("");
 
-  delay(3000); 
+  delay(3000);
 }

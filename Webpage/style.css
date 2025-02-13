@@ -27,3 +27,11 @@ p{
     width: 300px;
     background-color: white;
 }
+
+.button {
+    background-color: #0eb917;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    cursor: pointer;
+}

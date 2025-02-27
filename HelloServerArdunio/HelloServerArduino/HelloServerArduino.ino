@@ -36,8 +36,10 @@ DFRobot_DHT11 dht11;
 
 #define DHT11_PIN 4
 #define LED_PIN 26
+#define RELAY_PIN 16
 
 bool ledState = false;
+bool fanState = false;
 
 WebServer server(80);
 
@@ -72,6 +74,21 @@ void toggleLED() {
     server.send(200, "text/plain", "OFF");
   }
 
+}
+
+void toggleFan() {
+
+  fanState = !fanState;
+
+  if (fanState) {     // If LED is 
+    digitalWrite(RELAY_PIN, HIGH);
+    Serial.println("Fan Toggled: ON");
+    server.send(200, "text/plain", "ON");
+  } else {
+    digitalWrite(RELAY_PIN, LOW);
+    Serial.println("Fan Toggled: OFF");
+    server.send(200, "text/plain", "OFF");
+  }
 }
 
 void handleTemperature() {
@@ -145,6 +162,7 @@ void setup(void) {
   server.on("/feature2.html", feature2Page);
   server.on("/feature3.html", feature3Page);
   server.on("/temperature", handleTemperature);
+  server.on("/toggleFan", toggleFan);
   server.on("/toggleLED", toggleLED);
   server.on("/inline", []() {
     server.send(200, "text/plain", "this works as well");

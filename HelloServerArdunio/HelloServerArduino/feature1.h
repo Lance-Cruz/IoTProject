@@ -55,6 +55,17 @@ String feature1Pagepart1 = F(R"=====(<!DOCTYPE html>
         .catch(error => console.error('Error fetching temperature:', error)); // Handle errors
     }
 
+        function toggleFan() {
+        fetch('/toggleFan')
+        .then(response => response.text()) 
+        .then(status => {
+          console.log("Fan Status:", status); 
+          document.getElementById("fanStatus").innerText = status; 
+        })
+        .catch(error => console.error('Error toggling Fan:', error));
+    }
+
+
     // Fetch temperature every 2 seconds
     setInterval(fetchTemperature, 2000);
 
@@ -78,6 +89,8 @@ String feature1Pagepart1 = F(R"=====(<!DOCTYPE html>
 
     <p>Temperature: <span id="tempValue">Loading...</span> °C</p>
 
-    <button class="button">Manually Turn on Fan</button>
+    <p>Fan Status: <span id="fanStatus">Unknown</span></p>
+
+    <button class="button" onclick="toggleFan()">Manually turn on Fan</button>
 </body>
 </html>)=====");

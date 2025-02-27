@@ -26,6 +26,7 @@
 #include "index.h"
 #include "feature1.h"
 #include "feature2.h"
+#include "feature3.h"
 #include "DFRobot_DHT11.h"
 
 const char* ssid = "POCOM4Pro";
@@ -77,19 +78,25 @@ void handleTemperature() {
   server.send(200, "text/plain", getTemp());
 }
 
+/*void handleRoot() {
+  server.send(200, "text/html", homePagePart1); // Send the HTML page
+}*/
+
 //Index page
 void indexPage() {
   server.send(200, "text/html", indexPagepart1);
 }
 
-//Feature 1 page
 void feature1Page() {
   server.send(200, "text/html", feature1Pagepart1);
 }
 
-//Feature 2 page
 void feature2Page() {
   server.send(200, "text/html", feature2Pagepart1);
+}
+
+void feature3Page() {
+  server.send(200, "text/html", feature3Pagepart1);
 }
 
 void handleNotFound() {
@@ -132,9 +139,11 @@ void setup(void) {
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
 
+  //server.on("/", handleRoot);
   server.on("/", indexPage);
   server.on("/feature1.html", feature1Page);
   server.on("/feature2.html", feature2Page);
+  server.on("/feature3.html", feature3Page);
   server.on("/temperature", handleTemperature);
   server.on("/toggleLED", toggleLED);
   server.on("/inline", []() {

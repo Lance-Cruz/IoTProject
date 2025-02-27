@@ -1,4 +1,4 @@
-String indexPagepart1 = F(R"=====(<!DOCTYPE html>
+String feature3Pagepart1 = F(R"=====(<!DOCTYPE html>
 <html>
 <head>
     <title> SmartHaven Webpage </title>
@@ -42,29 +42,19 @@ String indexPagepart1 = F(R"=====(<!DOCTYPE html>
         cursor: pointer;
     }
     </style>
+
+    <script>
+        //add javascript 
+    </script>
 </head>
+
 <body>
-    <h1>SmartHaven</h1>
+    <h1>Front Door Security</h1>
 
-    <p>Control and monitor your home with IoT devices</p>
-    
-    <div class="container">
-        <div class="feature">
-            <p><a href="feature1.html"> Feature 1 </p></a>
-        </div>
+    <iframe width="560" height="315" src="http://192.168.148.164:81/stream" frameborder="0" alt="camera stream" allowfullscreen></iframe>
 
-        <div class="feature">
-            <p><a href="feature2.html"> Feature 2</p></a>
-        </div>
+    <p>Test</p>
 
-        <div class="feature">
-            <p><a href="feature3.html"> Feature 3</p></a>
-        </div>
-
-        <div class="feature">
-            <p><a href="feature4.html"> Feature 4</p></a>
-        </div>
-    </div>  
-
+    <button class="button">Click to check camera</button>
 </body>
 </html>)=====");

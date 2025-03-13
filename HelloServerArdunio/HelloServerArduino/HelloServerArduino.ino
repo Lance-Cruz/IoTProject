@@ -184,6 +184,7 @@ void setup(void) {
   server.on("/feature1.html", feature1Page);
   server.on("/feature2.html", feature2Page);
   server.on("/feature3.html", feature3Page);
+  server.on("/feature4.html", feature4Page)
   server.on("/temperature", handleTemperature);
   server.on("/toggleFan", toggleFan);
   server.on("/toggleLED", toggleLED);

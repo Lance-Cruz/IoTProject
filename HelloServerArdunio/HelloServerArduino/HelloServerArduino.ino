@@ -91,6 +91,25 @@ void toggleFan() {
   }
 }
 
+void getPIR() {
+  pinStatePrevious = pinStateCurrent; // store old state
+  pinStateCurrent = digitalRead(PIN_TO_SENSOR); // read new state
+
+  if (pinStatePrevious == LOW && pinStateCurrent == HIGH) {
+    Serial.println("Motion detected!");
+    Serial.println("Check camera.");
+    server.send(200, "text/plain", "Motion detected! Check camera.");
+  } 
+  else if (pinStatePrevious == HIGH && pinStateCurrent == LOW) {
+    Serial.println("Motion stopped!");
+    server.send(200, "text/plain", "Motion stopped");
+  } 
+  else {
+    Serial.println("No motion change detected.");
+    server.send(200, "text/plain", "No motion change detected."); 
+  }
+}
+
 void handleTemperature() {
   server.send(200, "text/plain", getTemp());
 }
@@ -114,6 +133,10 @@ void feature2Page() {
 
 void feature3Page() {
   server.send(200, "text/html", feature3Pagepart1);
+}
+
+void feature4Page() {
+  server.send(200, "text/html", feature4Pagepart1);
 }
 
 void handleNotFound() {
@@ -164,6 +187,7 @@ void setup(void) {
   server.on("/temperature", handleTemperature);
   server.on("/toggleFan", toggleFan);
   server.on("/toggleLED", toggleLED);
+  server.on("/getPIR", getPIR);
   server.on("/inline", []() {
     server.send(200, "text/plain", "this works as well");
   });

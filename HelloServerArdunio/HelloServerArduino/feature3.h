@@ -44,7 +44,19 @@ String feature3Pagepart1 = F(R"=====(<!DOCTYPE html>
     </style>
 
     <script>
-        //add javascript 
+        function getPIR() {
+        fetch('/getPIR')
+        .then(response => response.text())
+        .then(status => {
+          console.log("Motion Sensor status:", status);
+          document.getElementById("pirStatus").innerText = status;
+        })
+        .catch(error => console.error('Error toggling LED:', error));
+    }
+
+    setInterval(getPIR, 2000);
+
+    window.onload = getPIR;
     </script>
 </head>
 
@@ -53,7 +65,7 @@ String feature3Pagepart1 = F(R"=====(<!DOCTYPE html>
 
     <iframe width="560" height="315" src="http://192.168.148.164:81/stream" frameborder="0" alt="camera stream" allowfullscreen></iframe>
 
-    <p>Test</p>
+     <p>Motion Sensor status: <span id="pirStatus">Unknown</span></p>
 
     <button class="button">Click to check camera</button>
 </body>

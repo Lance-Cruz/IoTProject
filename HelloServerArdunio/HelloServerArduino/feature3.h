@@ -51,7 +51,7 @@ String feature3Pagepart1 = F(R"=====(<!DOCTYPE html>
           console.log("Motion Sensor status:", status);
           document.getElementById("pirStatus").innerText = status;
         })
-        .catch(error => console.error('Error toggling LED:', error));
+        .catch(error => console.error('Error fetch motion sensor status:', error));
     }
 
     setInterval(getPIR, 2000);

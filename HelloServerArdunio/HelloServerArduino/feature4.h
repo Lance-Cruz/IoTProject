@@ -44,12 +44,24 @@ String feature4Pagepart1 = F(R"=====(<!DOCTYPE html>
     </style>
 
     <script>
-        
+        function fetchEnergy() {
+        fetch('/energyMeter') 
+        .then(response => response.text()) 
+        .then(simulatedPower => {
+          console.log("Simulated Power:", simulatedPower); 
+          document.getElementById("energyValue").innerText = simulatedPower; 
+        })
+        .catch(error => console.error('Error fetching power:', error)); // Handle errors
+    }
     </script>
+
+    window.onload = fetchEnergy;
 </head>
 
 <body>
     <h1>Power Load Measurement</h1>
+
+    <p>Power Load Value: <span id="energyValue">Unknown</span></p>
 
 </body>
 </html>)=====");

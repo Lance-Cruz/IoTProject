@@ -223,6 +223,7 @@ void setup(void) {
   server.on("/toggleFan", toggleFan);
   server.on("/toggleLED", toggleLED);
   server.on("/getPIR", getPIR);
+  server.on("/energyMeter", handleEnergy);
   server.on("/inline", []() {
     server.send(200, "text/plain", "this works as well");
   });

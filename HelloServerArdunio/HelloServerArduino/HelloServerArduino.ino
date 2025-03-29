@@ -22,7 +22,6 @@
 #include <WiFiClient.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
-#include "homepage.h"
 #include "index.h"
 #include "feature1.h"
 #include "feature2.h"
@@ -39,9 +38,14 @@ DFRobot_DHT11 dht11;
 #define LED_PIN 22
 #define RELAY_PIN 16
 #define MOTIONSENSOR_PIN 12
+#define VOLTAGE_SENSOR 32     
+#define CURRENT_SENSOR 34     
 
 bool ledState = false;
 bool fanState = false;
+
+int pinStateCurrent = LOW;    
+int pinStatePrevious = LOW;   
 
 WebServer server(80);
 
@@ -95,7 +99,7 @@ void toggleFan() {
 
 void getPIR() {
   pinStatePrevious = pinStateCurrent; // store old state
-  pinStateCurrent = digitalRead(PIN_TO_SENSOR); // read new state
+  pinStateCurrent = digitalRead(MOTIONSENSOR_PIN); // read new state
 
   if (pinStatePrevious == LOW && pinStateCurrent == HIGH) {
     Serial.println("Motion detected!");
@@ -112,8 +116,36 @@ void getPIR() {
   }
 }
 
+String getEnergyData(){
+  int currentValue = analogRead(CURRENT_SENSOR);
+  int voltageValue = analogRead(VOLTAGE_SENSOR);
+
+  // Convert the analog value into current and voltage
+  float currentReading = (currentValue * (0.22 / 4095)); // Current in milleamperes 
+  float voltageReading = voltageValue * 3.3 / 4095; // Voltage in volts
+
+  // Convert the current and voltage into power
+  float power = voltageReading * currentReading; // Measured power in millewatts
+
+  // Simulate appliance power with 1500W maximum scaling
+  float maxVoltage = 3.3;     // Maximum measurable voltage (based on sensor)
+  float maxCurrent = 0.22;    // Maximum measurable current in milleamperes
+  float maxPower = maxVoltage * maxCurrent; // Maximum sensor power (mW)
+
+  float scale = 1500 / maxPower;           // Scale to reach 1500W at max sensor output
+  float simulatedPower = power * scale;   // Dynamically adjust power based on scale
+
+  Serial.print("Simulated Appliance Power (W): " + String(simulatedPower, 3));
+
+  return String(simulatedPower, 3);
+}
+
 void handleTemperature() {
   server.send(200, "text/plain", getTemp());
+}
+
+void handleEnergy() {
+  server.send(200, "text/plain", getEnergyData());
 }
 
 /*void handleRoot() {
@@ -186,7 +218,7 @@ void setup(void) {
   server.on("/feature1.html", feature1Page);
   server.on("/feature2.html", feature2Page);
   server.on("/feature3.html", feature3Page);
-  server.on("/feature4.html", feature4Page)
+  server.on("/feature4.html", feature4Page);
   server.on("/temperature", handleTemperature);
   server.on("/toggleFan", toggleFan);
   server.on("/toggleLED", toggleLED);

@@ -27,6 +27,7 @@
 #include "feature1.h"
 #include "feature2.h"
 #include "feature3.h"
+#include "feature4.h"
 #include "DFRobot_DHT11.h"
 
 const char* ssid = "POCOM4Pro";
@@ -35,8 +36,9 @@ const char* password = "B714B435";
 DFRobot_DHT11 dht11;
 
 #define DHT11_PIN 4
-#define LED_PIN 26
+#define LED_PIN 22
 #define RELAY_PIN 16
+#define MOTIONSENSOR_PIN 12
 
 bool ledState = false;
 bool fanState = false;

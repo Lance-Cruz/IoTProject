@@ -53,9 +53,13 @@ String feature4Pagepart1 = F(R"=====(<!DOCTYPE html>
         })
         .catch(error => console.error('Error fetching power:', error)); // Handle errors
     }
-    </script>
+
+    setInterval(fetchEnergy, 2000);
 
     window.onload = fetchEnergy;
+    </script>
+
+    
 </head>
 
 <body>

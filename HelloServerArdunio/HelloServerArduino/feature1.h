@@ -77,9 +77,9 @@ String feature1Pagepart1 = F(R"=====(<!DOCTYPE html>
 <body>
     <h1>Humidty and Temperature</h1>
 
-    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2713002/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2713002/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Temperature&type=line&xaxis=Time&yaxis=Temp+C"></iframe>
 
-    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2713002/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2713002/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Humidity&type=line&xaxis=Time&yaxis=%25+Humidity"></iframe>
 
     <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2713002/widgets/1022339"></iframe>
 

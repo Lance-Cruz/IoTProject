@@ -65,6 +65,8 @@ String feature3Pagepart1 = F(R"=====(<!DOCTYPE html>
 
     <iframe width="560" height="315" src="http://192.168.148.164:81/stream" frameborder="0" alt="camera stream" allowfullscreen></iframe>
 
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2713002/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
     <p>Motion Sensor status: <span id="pirStatus">Unknown</span></p>
 
     <button class="button">Click to check camera</button>

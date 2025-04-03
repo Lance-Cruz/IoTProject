@@ -195,6 +195,8 @@ void setup(void) {
   WiFi.begin(ssid, password);
   Serial.println("");
 
+  pinMode(MOTIONSENSOR_PIN, INPUT);
+
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);

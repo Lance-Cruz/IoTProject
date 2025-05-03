@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Light Sensor</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        function toggleLED() {
+        fetch('/toggleLED')
+        .then(response => response.text())
+        .then(status => {
+          console.log("LED Status:", status);
+          document.getElementById("ledStatus").innerText = status;
+        })
+        .catch(error => console.error('Error toggling LED:', error));
+    }
+    </script>
+</head>
+
+<body>
+    <h1>Automatic Light Sensor</h1>
+
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2713002/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2713002/widgets/1022337"></iframe>
+
+    <p>
+        Current values below
+    </p>
+
+    <p>LED Status: <span id="ledStatus">Unknown</span></p>
+
+    <button class="button" onclick="toggleLED()">Manually turn on light</button>
+</body>
+</html>
